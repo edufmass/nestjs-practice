@@ -2,6 +2,10 @@ version: '3.7'
 services:
   app:
     build:
+      args:
+        user: node
+        uid: 1000
+        gid: 1000
       context: .
       dockerfile: Node.dockerfile
       target: 'dev-stage'
@@ -9,7 +13,7 @@ services:
       - '3000:3000'
     container_name: nestjs-test
     restart: always
-    command: /bin/sh -c "cd /app && npm install && npm run start"
+    command: /bin/sh -c "chown -R 1000:1000 /app && cd /app && yarn install && npm run start"
     volumes:
       - './app:/app'
     networks:
