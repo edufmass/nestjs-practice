@@ -13,7 +13,7 @@ services:
       - '3000:3000'
     container_name: nestjs-test
     restart: always
-    command: /bin/sh -c "chown -R 1000:1000 /app && cd /app && yarn install && npm run start"
+    command: /bin/sh -c "chown -R 1000:1000 /app && cd /app && yarn install && yarn start:dev"
     volumes:
       - './app:/app'
     networks:
