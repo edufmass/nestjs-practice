@@ -5,6 +5,7 @@
 
 # Own stuff
 app/node_modules/
+sqldata
 
 
 # User-specific stuff:

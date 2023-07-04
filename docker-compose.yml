@@ -18,6 +18,20 @@ services:
       - './app:/app'
     networks:
       - nestjs
+  db:
+    image: postgres:15.3-bullseye
+    container_name: nestjs-test-db
+    ports:
+      - 5434:5432
+    restart: always
+    environment:
+      POSTGRES_USER: 'nestjs_test-usr'
+      POSTGRES_PASSWORD: 'nestjs_124713'
+      POSTGRES_DB: 'nestjs_test'
+    volumes:
+      - ./sqldata:/var/lib/postgresql/data
+    networks:
+      - nestjs
 
 networks:
   nestjs:
