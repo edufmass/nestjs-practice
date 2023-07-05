@@ -44,7 +44,28 @@ export class AuthService {
         }
     }
 
-    login() {
-        return { msg: 'You are logged in.' };
+    async login(dto: AuthDto) {
+        const user = await this.db.user.findUnique({
+            where: {
+                email: dto.email,
+            }
+        });
+
+        if(!user) throw new ForbiddenException(
+            'Email error, try another.',
+        );
+
+        const passwdCorrect = await argon.verify(user.password, dto.password);
+
+        if(!passwdCorrect) throw new ForbiddenException(
+            'Email or password incorrect, try again.',
+        );
+
+        delete user.password;
+        
+        return {
+            msg: 'You are logged in.',
+            user
+        };
     }
 }
