@@ -32,6 +32,18 @@ services:
       - ./sqldata:/var/lib/postgresql/data
     networks:
       - nestjs
+  test-db:
+    image: postgres:15.3-bullseye
+    container_name: nestjs-test-dbtests
+    ports:
+      - 5435:5432
+    restart: always
+    environment:
+      POSTGRES_USER: 'nestjs_test-usr'
+      POSTGRES_PASSWORD: 'nestjs_124713'
+      POSTGRES_DB: 'nestjs_test'
+    networks:
+      - nestjs
 
 networks:
   nestjs:

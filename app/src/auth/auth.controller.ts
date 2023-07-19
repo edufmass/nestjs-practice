@@ -9,9 +9,6 @@ export class AuthController {
     @HttpCode(HttpStatus.CREATED) // or HttpCode(201)
     @Post('signup')
     signup(@Body() dto: AuthDto) {
-        console.log({
-            dto: dto,
-        });
         return this.authService.signup(dto);
     }
 
