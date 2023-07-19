@@ -4,6 +4,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DatabaseService } from '../src/database/database.service';
 import * as pactum from 'pactum';
 import { AuthDto } from 'src/auth/dto';
+import { EditUserDto } from 'src/user/dto';
 
 describe('App (e2e)', () => {
 
@@ -133,7 +134,24 @@ describe('App (e2e)', () => {
       });
     });
 
-    describe('Edit user', () => { });
+    describe('Edit user', () => {
+      const dto: EditUserDto = {
+        email: 'edufmass@editedmail.com',
+        firstName: 'Edu',
+        lastName: 'Mass'
+      }
+      it('Should update user first and last name', () => {
+        return pactum
+          .spec()
+          .withBearerToken('$S{userToken}') // or .withHeaders({ Authorization: 'Bearer $S{userToken}', })
+          .patch('/users')
+          .withBody({
+            firstName: dto.firstName,
+            lastName: dto.lastName
+          })
+          .expectStatus(200)
+      });
+    });
   });
 
   describe('Bookmark', () => {
